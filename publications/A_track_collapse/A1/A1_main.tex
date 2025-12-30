@@ -1,0 +1,122 @@
+﻿% A1 — IEEE two-column conference-style paper (skeleton)
+% Title: Characterizing Performance Collapse in MFCC–Neural ASR Pipelines Under Controlled Acoustic Degradation
+% Author: Joshua Cole Schuetta (Independent Researcher)
+
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{siunitx}
+\usepackage{booktabs}
+
+\title{Characterizing Performance Collapse in MFCC--Neural ASR Pipelines Under Controlled Acoustic Degradation}
+
+\author{
+\IEEEauthorblockN{Joshua Cole Schuetta}
+\IEEEauthorblockA{
+Independent Researcher\\
+United States\\
+ORCID: 0009-0007-6501-5990\\
+Email: joshua.cole.schuetta@gmail.com
+}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Robustness in automatic speech recognition (ASR) systems is commonly reported using aggregate performance metrics evaluated over broad noise conditions. Such summaries can obscure the onset and structure of failure under progressive signal degradation. In this work, we introduce a controlled evaluation framework that treats performance collapse as a measurable boundary rather than a gradual trend. Using a fixed front-end representation and multiple representative neural backends, we quantify the location and structure of collapse under calibrated acoustic degradation. Experimental results demonstrate that collapse manifests as an abrupt and repeatable transition, exhibiting consistent structural properties across model classes.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Automatic speech recognition, robustness evaluation, performance collapse, signal degradation, representation stability
+\end{IEEEkeywords}
+
+\section{Introduction}
+Robustness evaluation in automatic speech recognition systems is typically framed in terms of aggregate accuracy measured across predefined noise conditions or signal-to-noise ratio intervals. While such metrics provide a coarse assessment of average performance, they can obscure the precise conditions under which systems transition from reliable to unreliable operation. This paper treats performance collapse as a measurable boundary and provides quantitative metrics for localizing that boundary under controlled acoustic degradation.
+
+\section{System and Evaluation Pipeline}
+\subsection{Dataset}
+% [PLACEHOLDER: dataset name, size, split, citation]
+
+\subsection{Front-End Representation}
+All experiments employ a fixed mel-frequency cepstral coefficient (MFCC) front-end. Feature extraction parameters are held constant across all evaluations.
+
+\subsection{Neural Backends}
+% [PLACEHOLDER: list the four model classes at high level without hyperparameters.]
+
+\subsection{Controlled Degradation Protocol}
+% [PLACEHOLDER: degradation types, parameter d, sweep range, step size.]
+
+\subsection{Evaluation Procedure}
+% [PLACEHOLDER: evaluation metric definition and procedure.]
+
+\section{Collapse Metrics and Definitions}
+Let $d$ denote a monotonic degradation parameter and let $P(d)$ denote performance on a discrete grid $\{d_i\}$ with spacing $\Delta d$.
+
+\subsection{Collapse Point Identification}
+\[
+\frac{\Delta P}{\Delta d}(d_i)=\frac{P(d_{i+1})-P(d_{i-1})}{2\Delta d}.
+\]
+\[
+d_c=\min_{d_i}\left\{d_i:\left|\frac{\Delta P}{\Delta d}(d_i)\right|\ge\tau_s\right\},\quad
+\tau_s = 5 \times \mathrm{median}_{j<i}\left(\left|\frac{\Delta P}{\Delta d}(d_j)\right|\right).
+\]
+
+\subsection{Collapse Sharpness}
+\[
+\kappa(d_i)=\frac{P(d_{i+1})-2P(d_i)+P(d_{i-1})}{(\Delta d)^2},\quad
+S_c=\max_{|d_i-d_c|\le \delta}|\kappa(d_i)|,\ \delta=2\Delta d.
+\]
+
+\subsection{Representation Instability}
+% [PLACEHOLDER: define representation z(d) used for entropy, bins, etc.]
+\[
+H(d)=-\sum_{k=1}^{K}p_k(d)\log p_k(d),
+\quad
+d_H=\min_{d_i}\left\{d_i:H(d_i)-H(d_{i-1})\ge\tau_H\right\},
+\quad \tau_H=3\sigma_H.
+\]
+
+\subsection{Structural Consistency Across Models}
+% [PLACEHOLDER: apply criteria across the four models.]
+
+\section{Experimental Results}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{../../assets/figures/A1/fig_pipeline}
+\caption{Block diagram of the evaluation pipeline.}
+\label{fig:pipeline}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{../../assets/figures/A1/fig_accuracy_vs_degradation}
+\caption{Recognition accuracy as a function of degradation parameter for representative models.}
+\label{fig:acc}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{../../assets/figures/A1/fig_collapse_boundary}
+\caption{Identified collapse boundaries under controlled degradation.}
+\label{fig:collapse}
+\end{figure}
+
+% [PLACEHOLDER: add remaining 3 figures: sharpness, instability, cross-model consistency]
+
+\section{Discussion}
+% [PLACEHOLDER]
+
+\section{Limitations}
+% [PLACEHOLDER]
+
+\section{Conclusion}
+% [PLACEHOLDER]
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

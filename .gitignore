@@ -1,0 +1,5 @@
+﻿ops\secrets\
+ops\logs\
+*.log
+.DS_Store
+Thumbs.db
